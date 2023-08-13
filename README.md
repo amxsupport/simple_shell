@@ -16,3 +16,15 @@ To invoke **shellby**, compile all `.c` files in the repository and run the resu
 gcc *.c -o shellby
 ./shellby
 ```
+
+## :blue_book: Authors
+
+* **Amksa Abdelaaziz** - [@amxsupport](https://github.com/amxsupport)
+
+* **Chouqar Ottman** - [@Otmanbboy](https://github.com/Otmanbboy)
+
+
+
+## :mag: License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
