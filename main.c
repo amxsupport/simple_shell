@@ -42,46 +42,52 @@ int execute(char **args, char **front)
  */
 int main(int argc, char *argv[])
 {
-	pid_t child_pid;
-	int status;
-	char **argv;
-	size_t n, index;
-	ssize_t read;
-	char *line;
+	int ret = 0, retn;
+	int *exe_ret = &retn;
+	char *prompt = "$ ", *new_line = "\n";
 
-	line = NULL;
+	name = argv[0];
+	hist = 1;
+	aliases = NULL;
+	signal(SIGINT, sig_handler);
+
+	*exe_ret = 0;
+/*	environ = _copyenv(); */
+	if (!environ)
+		exit(-100);
+
+	if (argc != 1)
+	{
+/*		ret = proc_file_commands(argv[1], exe_ret); */
+/*		free_env(); */
+/*		free_alias_list(aliases); */
+		return (*exe_ret);
+	}
+
+	if (!isatty(STDIN_FILENO))
+	{
+		while (ret != END_OF_FILE && ret != EXIT)
+			ret = handle_args(exe_ret);
+/*		free_env(); */
+/*		free_alias_list(aliases); */
+		return (*exe_ret);
+	}
+
 	while (1)
 	{
-		printf("$ ");
-		n = 0;
-		if ((read = getline(&line, &n, stdin)) == -1)
+		write(STDOUT_FILENO, prompt, 2);
+/*		ret = handle_args(exe_ret); */
+		if (ret == END_OF_FILE || ret == EXIT)
 		{
-			printf("read failed\n");
-			return (1);
+			if (ret == END_OF_FILE)
+				write(STDOUT_FILENO, new_line, 1);
+/*			free_env(); */
+/*			free_alias_list(aliases); */
+			exit(*exe_ret);
 		}
-		argv = _strtok(line, " ");
-		if (argv[0][0] != '/')
-			argv[0] = get_location(argv[0]);
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			perror("Error child:");
-			return (1);
-		}
-		if (child_pid == 0)
-		{
-			if (execve(argv[0], argv, NULL) == -1)
-				perror("Error exec gone wrong:");
-		}
-		else
-		{
-			wait(&status);
-		}
-		for (index = 0; argv[index]; index++)
-			free(argv[index]);
-		free(argv);
-		free(line);
-		return (0);
 	}
-	return (0);
+
+/*	free_env(); */
+/*	free_alias_list(aliases); */
+	return (*exe_ret);
 }
