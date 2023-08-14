@@ -45,5 +45,13 @@ void free_list(list_t *head);
 
 /* Error Handling */
 int create_error(char **args, int err);
+char *error_env(char **args);
+char *error_1(char **args);
+char *error_2_exit(char **args);
+char *error_2_cd(char **args);
+char *error_2_syntax(char **args);
+char *error_126(char **args);
+char *error_127(char **args);
+
 
 #endif /* _SHELL_H_ */
