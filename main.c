@@ -14,8 +14,8 @@ int execute(char **args, char **front);
 void sig_handler(int sig)
 {
 	char *new_prompt = "\n$ ";
- 
- (void)sig;
+
+	(void)sig;
 	signal(SIGINT, sig_handler);
 	write(STDIN_FILENO, new_prompt, 3);
 }
@@ -30,7 +30,7 @@ void sig_handler(int sig)
  */
 int execute(char **args, char **front)
 {
-  /* implementing execute */ 
+/* implementing execute */
 }
 
 /**
@@ -42,5 +42,5 @@ int execute(char **args, char **front)
  */
 int main(int argc, char *argv[])
 {
- /* implementing main */ 
+/* implementing main */
 }
