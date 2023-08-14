@@ -16,7 +16,12 @@ void variable_replacement(char **args, int *exe_ret);
  */
 void free_args(char **args, char **front)
 {
-/* implementation */
+	size_t i;
+
+	for (i = 0; args[i] || args[i + 1]; i++)
+		free(args[i]);
+
+	free(front);
 }
 
 /**
