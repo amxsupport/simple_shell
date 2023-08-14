@@ -6,6 +6,11 @@
  *
  */
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <stdio.h>
+
 /* String functions */
 int _strlen(const char *s);
 char *_strcat(char *dest, const char *src);
