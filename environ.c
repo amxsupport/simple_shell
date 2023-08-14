@@ -50,7 +50,11 @@ char **_copyenv(void)
  */
 void free_env(void)
 {
-/* implementing */
+	int index;
+
+	for (index = 0; environ[index]; index++)
+		free(environ[index]);
+	free(environ);
 }
 
 /**
