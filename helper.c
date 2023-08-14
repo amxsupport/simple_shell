@@ -72,7 +72,29 @@ char *get_pid(void)
  */
 char *get_env_value(char *beginning, int len)
 {
-/* implementation */
+	char **var_addr;
+	char *replacement = NULL, *temp, *var;
+
+	var = malloc(len + 1);
+	if (!var)
+		return (NULL);
+	var[0] = '\0';
+	_strncat(var, beginning, len);
+
+	var_addr = _getenv(var);
+	free(var);
+	if (var_addr)
+	{
+		temp = *var_addr;
+		while (*temp != '=')
+			temp++;
+		temp++;
+		replacement = malloc(_strlen(temp) + 1);
+		if (replacement)
+			_strcpy(replacement, temp);
+	}
+
+	return (replacement);
 }
 /**
  * variable_replacement - Handles variable replacement.
