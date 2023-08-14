@@ -87,7 +87,16 @@ list_t *add_node_end(list_t **head, char *dir)
  */
 void free_alias_list(alias_t *head)
 {
-/* implementation */
+	alias_t *next;
+
+	while (head)
+	{
+		next = head->next;
+		free(head->name);
+		free(head->value);
+		free(head);
+		head = next;
+	}
 }
 
 /**
@@ -96,7 +105,15 @@ void free_alias_list(alias_t *head)
  */
 void free_list(list_t *head)
 {
-/* implementation */
+	list_t *next;
+
+	while (head)
+	{
+		next = head->next;
+		free(head->dir);
+		free(head);
+		head = next;
+	}
 }
 
 
