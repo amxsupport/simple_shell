@@ -13,7 +13,11 @@ int execute(char **args, char **front);
  */
 void sig_handler(int sig)
 {
- /* implementing sig_handler*/ 
+	char *new_prompt = "\n$ ";
+ 
+ (void)sig;
+	signal(SIGINT, sig_handler);
+	write(STDIN_FILENO, new_prompt, 3);
 }
 
 /**
