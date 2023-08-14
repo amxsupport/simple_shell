@@ -43,5 +43,7 @@ void free_alias_list(alias_t *head);
 list_t *add_node_end(list_t **head, char *dir);
 void free_list(list_t *head);
 
+/* Error Handling */
+int create_error(char **args, int err);
 
 #endif /* _SHELL_H_ */
