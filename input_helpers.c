@@ -114,7 +114,29 @@ int call_args(char **args, char **front, int *exe_ret)
  */
 int run_args(char **args, char **front, int *exe_ret)
 {
-/* implementation */
+	int ret, i;
+	int (*builtin)(char **args, char **front);
+
+	builtin = get_builtin(args[0]);
+
+	if (builtin)
+	{
+		ret = builtin(args + 1, front);
+		if (ret != EXIT)
+			*exe_ret = ret;
+	}
+	else
+	{
+		*exe_ret = execute(args, front);
+		ret = *exe_ret;
+	}
+
+	hist++;
+
+	for (i = 0; args[i]; i++)
+		free(args[i]);
+
+	return (ret);
 }
 
 /**
