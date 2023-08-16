@@ -11,6 +11,13 @@
 #include <errno.h>
 #include <stdio.h>
 
+/* Main Helpers */
+char *get_location(char *command);
+list_t *get_path_dir(char *path);
+int execute(char **args, char **front);
+void free_list(list_t *head);
+char *_itoa(int num);
+
 /* String functions */
 int _strlen(const char *s);
 char *_strcat(char *dest, const char *src);
