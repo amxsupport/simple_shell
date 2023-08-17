@@ -67,31 +67,34 @@ int proc_file_commands(char *file_path, int *exe_ret)
 		*exe_ret = cant_open(file_path);
 		return (*exe_ret);
 	}
-
 	line = malloc(sizeof(char) * old_size);
 	if (!line)
 		return (-1);
-	line[0] = '\0';
-
 	do {
-		b_read = read(file, buffer, 120);
-		buffer[b_read - 1] = '\0';
+		b_read = read(file, buffer, 119);
+		if (b_read == 0 && line_size == 0)
+			return (*exe_ret);
+		buffer[b_read] = '\0';
 		line_size += b_read;
 		line = _realloc(line, old_size, line_size);
 		_strcat(line, buffer);
 		old_size = line_size;
-	} while (b_read == 120);
-	line[line_size - 1] = '\0';
-	for (i = 0; i < line_size; i++)
+	} while (b_read);
+	for (i = 0; line[i] == '\n'; i++)
+		line[i] = ' ';
+	for (; i < line_size; i++)
 	{
 		if (line[i] == '\n')
+		{
 			line[i] = ';';
+			for (i += 1; i < line_size && line[i] == '\n'; i++)
+				line[i] = ' ';
+		}
 	}
 	variable_replacement(&line, exe_ret);
 	handle_line(&line, line_size);
 	args = _strtok(line, " ");
 	free(line);
-	args = replace_aliases(args);
 	if (!args)
 		return (0);
 	if (check_args(args) != 0)
