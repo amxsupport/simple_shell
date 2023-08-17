@@ -53,18 +53,19 @@ int cant_open(char *file_path)
  */
 int proc_file_commands(char *file_path, int *exe_ret)
 {
-	ssize_t file;
-	ssize_t b_read;
+	ssize_t file, b_read, i;
 	unsigned int line_size = 0;
 	unsigned int old_size = 120;
-	char *line;
+	char *line, **args, **front;
 	char buffer[120];
+	int ret;
 
+	hist = 0;
 	file = open(file_path, O_RDONLY);
 	if (file == -1)
 	{
-		perror("Error ");
-		return (127);
+		*exe_ret = cant_open(file_path);
+		return (*exe_ret);
 	}
 
 	line = malloc(sizeof(char) * old_size);
@@ -74,11 +75,47 @@ int proc_file_commands(char *file_path, int *exe_ret)
 
 	do {
 		b_read = read(file, buffer, 120);
+		buffer[b_read - 1] = '\0';
 		line_size += b_read;
 		line = _realloc(line, old_size, line_size);
 		_strcat(line, buffer);
 		old_size = line_size;
 	} while (b_read == 120);
+	line[line_size - 1] = '\0';
+	for (i = 0; i < line_size; i++)
+	{
+		if (line[i] == '\n')
+			line[i] = ';';
+	}
+	variable_replacement(&line, exe_ret);
+	handle_line(&line, line_size);
+	args = _strtok(line, " ");
+	free(line);
+	args = replace_aliases(args);
+	if (!args)
+		return (0);
+	if (check_args(args) != 0)
+	{
+		*exe_ret = 2;
+		free_args(args, args);
+		return (*exe_ret);
+	}
+	front = args;
 
-	exit(0);
+	for (i = 0; args[i]; i++)
+	{
+		if (_strncmp(args[i], ";", 1) == 0)
+		{
+			free(args[i]);
+			args[i] = NULL;
+			ret = call_args(args, front, exe_ret);
+			args = &args[++i];
+			i = 0;
+		}
+	}
+
+	ret = call_args(args, front, exe_ret);
+
+	free(front);
+	return (ret);
 }
