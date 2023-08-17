@@ -8,6 +8,7 @@
 int (*get_builtin(char *command))(char **args);
 int shellby_exit(char **args);
 int shellby_cd(char **args);
+int shellby_help(char **args, char __attribute__((__unused__)) **front);
 
 /**
  * get_builtin - Matches a command with a corresponding
@@ -24,14 +25,15 @@ int (*get_builtin(char *command))(char **args)
 		{ "setenv", shellby_setenv },
 		{ "unsetenv", shellby_unsetenv },
 		{ "cd", shellby_cd },
-	/*	{ "alias", shelly_alias },*/
+		{ "alias", shellby_alias },
+		{ "help", shellby_help },
 		{ NULL, NULL }
 	};
 	int i;
 
 	for (i = 0; funcs[i].name; i++)
 	{
-		if (_strncmp(funcs[i].name, command, _strlen(funcs[i].name)) == 0)
+		if (_strcmp(funcs[i].name, command) == 0)
 			break;
 	}
 	return (funcs[i].f);
