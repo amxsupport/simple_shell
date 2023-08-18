@@ -97,5 +97,11 @@ char *error_2_syntax(char **args);
 char *error_126(char **args);
 char *error_127(char **args);
 
+void help_all(void);
+void help_alias(void);
+void help_cd(void);
+void help_exit(void);
+void help_help(void);
+
 int proc_file_commands(char *file_path, int *exe_ret);
 #endif /* _SHELL_H_ */
