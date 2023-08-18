@@ -55,7 +55,19 @@ void help_alias(void)
  */
 void help_cd(void)
 {
-  /* implementation */
+	char *msg = "cd: cd [DIRECTORY]\n\tChanges the current directory of the";
+
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = " process to DIRECTORY.\n\n\tIf no argument is given, the ";
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = "command is interpreted as cd $HOME. If the argument '-' is";
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = " given, the command is interpreted as cd $OLDPWD.\n\n";
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = "\tThe environment variables PWD and OLDPWD are updated ";
+	write(STDOUT_FILENO, msg, _strlen(msg));
+	msg = "after a change of directory.\n";
+	write(STDOUT_FILENO, msg, _strlen(msg));
 }
 
 /**
