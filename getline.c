@@ -69,7 +69,27 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
  */
 void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b)
 {
-	/* iplementation */
+	if (*lineptr == NULL)
+	{
+		if (b > 120)
+			*n = b;
+		else
+			*n = 120;
+		*lineptr = buffer;
+	}
+	else if (*n < b)
+	{
+		if (b > 120)
+			*n = b;
+		else
+			*n = 120;
+		*lineptr = buffer;
+	}
+	else
+	{
+		_strcpy(*lineptr, buffer);
+		free(buffer);
+	}
 }
 
 /**
