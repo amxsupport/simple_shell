@@ -169,5 +169,24 @@ ssize_t get_new_len(char *line)
  */
 void logical_ops(char *line, ssize_t *new_len)
 {
-	/* implement */
+	char previous, current, next;
+
+	previous = *(line - 1);
+	current = *line;
+	next = *(line + 1);
+
+	if (current == '&')
+	{
+		if (next == '&' && previous != ' ')
+			(*new_len)++;
+		else if (previous == '&' && next != ' ')
+			(*new_len)++;
+	}
+	else if (current == '|')
+	{
+		if (next == '|' && previous != ' ')
+			(*new_len)++;
+		else if (previous == '|' && next != ' ')
+			(*new_len)++;
+	}
 }
