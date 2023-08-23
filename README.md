@@ -4,17 +4,17 @@ A simple UNIX command interpreter written as part of the low-level programming a
 
 ## Description :speech_balloon:
 
-**Shellby** is a simple UNIX command language interpreter that reads commands from either a file or standard input and executes them.
+**simple_shell** is a simple UNIX command language interpreter that reads commands from either a file or standard input and executes them.
 
 ### Invocation :running:
 
-Usage: **shellby** [filename]
+Usage: **simple_shell** [filename]
 
-To invoke **shellby**, compile all `.c` files in the repository and run the resulting executable:
+To invoke **simple_shell**, compile all `.c` files in the repository and run the resulting executable:
 
 ```
-gcc *.c -o shellby
-./shellby
+gcc *.c -o simple_shell
+./simple_shell
 ```
 
 ## :blue_book: Authors
