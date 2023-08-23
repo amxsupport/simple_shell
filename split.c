@@ -20,6 +20,15 @@ char **_strtok(char *line, char *delim);
  */
 int token_len(char *str, char *delim)
 {
+	int index = 0, len = 0;
+
+	while (*(str + index) && *(str + index) != *delim)
+	{
+		len++;
+		index++;
+	}
+
+	return (len);
 }
 
 /**
