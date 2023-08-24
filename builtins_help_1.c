@@ -11,7 +11,7 @@ void help_help(void);
  */
 void help_all(void)
 {
-  char *msg = "Shellby\nThese shell commands are defined internally.\n";
+	char *msg = "Shellby\nThese shell commands are defined internally.\n";
 
 	write(STDOUT_FILENO, msg, _strlen(msg));
 	msg = "Type 'help' to see this list.\nType 'help name' to find ";
